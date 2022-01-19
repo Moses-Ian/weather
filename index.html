@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+		<link rel="stylesheet" href="./assets/css/style.css" />
+		<!-- For more options, visit https://tailwindcss.com/docs/installation/play-cdn -->
+	
+    <title>Weather Dashboard</title>
+  </head>
+  <body>
+    <header><h1>Weather Dashboard</h1></header>
+		<div class="main">
+			<div class="search">
+				<form>
+					<label class="search-form" for="city">Search for a City:</label>
+					<input class="form-input" name="city" id="city" type="text" placeholder="Phoenix"/>
+					<button class="btn" type="submit">Search</button>
+				</form>
+				<hr>
+				<div class="history"></div>
+				<div class="search-results"></div>
+			</div>
+			<div class="display">
+				<ul class="today">
+					<h2><span id="city-name">Phoenix</span><span id="date">1/18/2022</span><span id="icon"></span></h2>
+					<li>Temp: <span id="temp"></span></li>
+					<li>Wind: <span id="wind"></span></li>
+					<li>Humidity: <span id="humidity"></span></li>
+					<li>UV Index: <span id="uv"></span></li>
+				</ul>
+				<h2>5 Day Forcast:</h2>
+				<div class="forcast">
+					<div class="card">something</div>
+					<div class="card">something</div>
+					<div class="card">something</div>
+					<div class="card">something</div>
+					<div class="card">something</div>
+				</div>
+			</div>
+		</div>
+
+    <!-- Optional JavaScript -->
+		<script src="./assets/js/script.js"></script>		
+  </body>
+</html>
