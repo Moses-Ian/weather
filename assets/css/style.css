@@ -32,6 +32,10 @@ form {
 	flex-direction: column;
 }
 
+.history {
+	list-style: none;
+}
+
 .search-results {
 	display: none;
 }
@@ -45,6 +49,10 @@ ul {
 	list-style: none;
 }
 
-.forcast {
+.forecast {
 	display: flex;
+}
+
+.forecast-card {
+	width: fit-content;
 }
