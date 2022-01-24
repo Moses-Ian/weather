@@ -62,13 +62,15 @@ function getWeather(cityName) {
 
 function displayWeather(data) {
 	console.log(data);
+	//the uv stuff
+	getUVIndex(data.coord.lat, data.coord.lon);
+	//everything else
 	cityNameEl.textContent = data.name;
 	dateEl.textContent = moment().format("MM/DD/YYYY");
 	iconEl.setAttribute("src", getIcon(data.weather[0].id));
 	tempEl.textContent = data.main.temp;
 	windEl.textContent = data.wind.speed;
 	humidityEl.textContent = data.main.humidity;
-	uvEl.textContent = "";
 }
 
 function getForecast(cityName) {
@@ -163,17 +165,36 @@ function updateHistory() {
 
 function getIcon(code) {
 	code = code.toString();
-	console.log(code);
+	// console.log(code);
 	
 	for(var i=0; i<idList.length; i++) {
 		if (code.match(idList[i][0])) {
-			console.log(idList[i][1]);
+			// console.log(idList[i][1]);
 			return `http://openweathermap.org/img/wn/${idList[i][1]}@2x.png`;
 		}
 	}
 }
 
+function getUVIndex(lat, lon) {
+	//since uv index only comes with this call, we need an additional call
+	var apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily,alerts&units=imperial&appid=${weatherKey}`;
+	fetch(apiUrl)
+	.then(function(response) {
+		if(!response.ok) {
+			console.log("response bad");
+			return;
+		}
+		response.json()
+		.then(function(data) {
+			console.log(data);
+			displayUVIndex(data);
+		});
+	});
+}
 
+function displayUVIndex(data) {
+	uvEl.textContent = data.current.uvi;
+}
 
 //listeners
 //=====================================
