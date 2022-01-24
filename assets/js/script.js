@@ -2,7 +2,9 @@
 //==================================
 var weatherKey = "d328b40d39c16723c7e965ef48afe542";
 var cityNameEl = document.querySelector("#city-name");
+var dateEl = document.querySelector("#date");
 var tempEl = document.querySelector("#temp");
+var iconEl = document.querySelector("#icon");
 var windEl = document.querySelector("#wind");
 var humidityEl = document.querySelector("#humidity");
 var uvEl = document.querySelector("#uv");
@@ -12,7 +14,21 @@ var inputEl = document.querySelector("#city");
 var historyEl = document.querySelector(".history");
 
 var historyList = [];
-
+var idList = [
+	[/2\d\d/, "11d"], //2xx
+	[/3\d\d/, "09d"], //3xx
+	[/50\d/,  "10d"], //50x
+	[/511/,   "13d"], //511
+	[/5\d\d/, "09d"], //5xx
+	[/6\d\d/, "13d"], //6xx
+	[/7\d\d/, "50d"], //7xx
+	[/800/,   "01d"], //800
+	[/801/,   "02d"], //801
+	[/802/,   "03d"], //802
+	[/803/,   "04d"], //803
+	[/804/,   "04d"], //804
+];
+	
 
 
 //functions
@@ -45,8 +61,10 @@ function getWeather(cityName) {
 }
 
 function displayWeather(data) {
+	console.log(data);
 	cityNameEl.textContent = data.name;
-	// console.log(data);
+	dateEl.textContent = moment().format("MM/DD/YYYY");
+	iconEl.setAttribute("src", getIcon(data.weather[0].id));
 	tempEl.textContent = data.main.temp;
 	windEl.textContent = data.wind.speed;
 	humidityEl.textContent = data.main.humidity;
@@ -63,7 +81,7 @@ function getForecast(cityName) {
 		}
 		response.json()
 		.then(function(data) {
-			// console.log(data);
+			console.log(data);
 			// localStorage.setItem("forecast2", JSON.stringify(data));
 			parseForecast(data);
 		});
@@ -91,6 +109,8 @@ function displayForecast(forecast) {
 	cardEl.className = "forecast-card";
 	var cardDateEl = document.createElement("h2");
 	cardDateEl.textContent = moment(forecast.dt_txt).format("MM/DD/YYYY");
+	var cardIconEl = document.createElement("img");
+	cardIconEl.setAttribute("src", getIcon(forecast.weather[0].id));
 	var cardTempEl = document.createElement("li");
 	cardTempEl.textContent = `Temp: ${forecast.main.temp}`;
 	var cardWindEl = document.createElement("li");
@@ -99,6 +119,7 @@ function displayForecast(forecast) {
 	cardHumidityEl.textContent = `Hum: ${forecast.main.humidity}`;
 	
 	cardEl.appendChild(cardDateEl);
+	cardEl.appendChild(cardIconEl);
 	cardEl.appendChild(cardTempEl);
 	cardEl.appendChild(cardWindEl);
 	cardEl.appendChild(cardHumidityEl);
@@ -139,6 +160,20 @@ function updateHistory() {
 	}
 	
 }
+
+function getIcon(code) {
+	code = code.toString();
+	console.log(code);
+	
+	for(var i=0; i<idList.length; i++) {
+		if (code.match(idList[i][0])) {
+			console.log(idList[i][1]);
+			return `http://openweathermap.org/img/wn/${idList[i][1]}@2x.png`;
+		}
+	}
+}
+
+
 
 //listeners
 //=====================================
