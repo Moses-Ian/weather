@@ -1,6 +1,9 @@
 //variables
 //==================================
 var weatherKey = "d328b40d39c16723c7e965ef48afe542";
+var showHistoryEl = document.querySelector(".show-history");
+var arrowEl = document.querySelector(".arrow");
+var searchEl = document.querySelector(".search");
 var cityNameEl = document.querySelector("#city-name");
 var dateEl = document.querySelector("#date");
 var tempEl = document.querySelector("#temp");
@@ -202,8 +205,24 @@ function displayUVIndex(data) {
 		uvEl.style.backgroundColor = "var(--pur)";
 }
 
+function peakHistory() {
+	if (window.innerWidth > 768)
+		return;
+	if (searchEl.style.display == "none" || searchEl.style.display == "") {
+		searchEl.style.display = "block";
+		arrowEl.style.transform = "rotate(-225deg)";
+		arrowEl.style.marginRight = "-10px";
+	} else {
+		searchEl.style.display = "none";
+		arrowEl.style.transform = "rotate(-45deg)";
+		arrowEl.style.marginRight = "10px";
+	}
+}
+
 //listeners
 //=====================================
+showHistoryEl.addEventListener("click", peakHistory);
+
 formEl.addEventListener("submit", function() {
 	event.preventDefault();
 	var cityName = inputEl.value.trim();
@@ -213,6 +232,7 @@ formEl.addEventListener("submit", function() {
 	formEl.reset();
 	
 	searchCity(cityName);
+	peakHistory();
 });
 
 historyEl.addEventListener("click", function(event) {
@@ -221,6 +241,7 @@ historyEl.addEventListener("click", function(event) {
 		return;
 
 	searchCity(targetEl.textContent);
+	peakHistory();
 });
 
 
