@@ -177,7 +177,7 @@ function getIcon(code) {
 	for(var i=0; i<idList.length; i++) {
 		if (code.match(idList[i][0])) {
 			// console.log(idList[i][1]);
-			return `http://openweathermap.org/img/wn/${idList[i][1]}@2x.png`;
+			return `./assets/images/${idList[i][1]}.png`;
 		}
 	}
 }
