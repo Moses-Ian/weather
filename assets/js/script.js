@@ -68,9 +68,9 @@ function displayWeather(data) {
 	cityNameEl.textContent = data.name;
 	dateEl.textContent = moment().format("MM/DD/YYYY");
 	iconEl.setAttribute("src", getIcon(data.weather[0].id));
-	tempEl.textContent = data.main.temp;
-	windEl.textContent = data.wind.speed;
-	humidityEl.textContent = data.main.humidity;
+	tempEl.textContent = `${data.main.temp} °F`;
+	windEl.textContent = `${data.wind.speed} MPH`;
+	humidityEl.textContent = `${data.main.humidity} %`;
 }
 
 function getForecast(cityName) {
@@ -107,17 +107,18 @@ function parseForecast(data) {
 function displayForecast(forecast) {
 	//forecast is an object with clouds, main, etc
 	var cardEl = document.createElement("ul");
-	cardEl.className = "forecast-card";
-	var cardDateEl = document.createElement("h2");
-	cardDateEl.textContent = moment(forecast.dt_txt).format("MM/DD/YYYY");
+	cardEl.className = "forecast-card block";
+	var cardDateEl = document.createElement("h3");
+	cardDateEl.textContent = moment(forecast.dt_txt).format("MM/DD");
 	var cardIconEl = document.createElement("img");
 	cardIconEl.setAttribute("src", getIcon(forecast.weather[0].id));
+	cardIconEl.classList = "forecast-icon";
 	var cardTempEl = document.createElement("li");
-	cardTempEl.textContent = `Temp: ${forecast.main.temp}`;
+	cardTempEl.textContent = `Temp: ${forecast.main.temp} °F`;
 	var cardWindEl = document.createElement("li");
-	cardWindEl.textContent = `Wind: ${forecast.wind.speed}`;
+	cardWindEl.textContent = `Wind: ${forecast.wind.speed} MPH`;
 	var cardHumidityEl = document.createElement("li");
-	cardHumidityEl.textContent = `Hum: ${forecast.main.humidity}`;
+	cardHumidityEl.textContent = `Hum: ${forecast.main.humidity} %`;
 	
 	cardEl.appendChild(cardDateEl);
 	cardEl.appendChild(cardIconEl);
@@ -188,6 +189,16 @@ function getUVIndex(lat, lon) {
 
 function displayUVIndex(data) {
 	uvEl.textContent = data.current.uvi;
+	if (data.current.uvi < 3) 
+		uvEl.style.backgroundColor = "var(--grn)";
+	else if (data.current.uvi < 6) 
+		uvEl.style.backgroundColor = "var(--ylw)";
+	else if (data.current.uvi < 8) 
+		uvEl.style.backgroundColor = "var(--org)";
+	else if (data.current.uvi < 11) 
+		uvEl.style.backgroundColor = "var(--red)";
+	else  
+		uvEl.style.backgroundColor = "var(--pur)";
 }
 
 //listeners

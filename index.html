@@ -4,15 +4,16 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="./assets/css/style.css" />
 		<script src="https://kit.fontawesome.com/3272e0b845.js" crossorigin="anonymous"></script>
 	
     <title>Weather Dashboard</title>
   </head>
   <body>
-    <header><h1>Weather Dashboard</h1></header>
+    <header class="block"><h1>Weather Dashboard</h1></header>
 		<div class="main">
-			<div class="search">
+			<div class="search block">
 				<form>
 					<label class="search-form" for="city">Search for a City:</label>
 					<input class="form-input" name="city" id="city" type="text" placeholder="Phoenix"/>
@@ -23,14 +24,15 @@
 				<div class="search-results"></div>
 			</div>
 			<div class="display">
-				<ul class="today">
-					<h2><span id="city-name">Phoenix</span><span id="date"></span><img id="icon" /></h2>
+				<ul class="today block">
+					<h2><span id="city-name">Phoenix</span></h2>
+					<h3><span id="date"></span></h3>
+					<img id="icon" />
 					<li>Temp: <span id="temp"></span></li>
 					<li>Wind: <span id="wind"></span></li>
 					<li>Humidity: <span id="humidity"></span></li>
 					<li>UV Index: <span id="uv"></span></li>
 				</ul>
-				<h2>5 Day Forcast:</h2>
 				<div class="forecast">
 				</div>
 			</div>
