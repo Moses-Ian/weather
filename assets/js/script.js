@@ -40,11 +40,13 @@ function searchCity(cityName) {
 	if(cityName === cityNameEl.textContent)
 		return;
 
-	forecastEl.innerHTML = "";	//no event handlers, so this is ok
 	
-	getWeather(cityName);
-	getForecast(cityName);
-	addToHistory(cityName);
+	var result = getWeather(cityName);
+	if (result) {
+		// if the city is valid
+		getForecast(cityName);
+		addToHistory(cityName);
+	}
 }
 
 function getWeather(cityName) {
@@ -53,12 +55,13 @@ function getWeather(cityName) {
 	.then(function(response) {
 		if(!response.ok) {
 			console.log("response bad");
-			return;
+			return false;
 		}
 		response.json()
 		.then(function(data) {
 			// console.log(data);
 			displayWeather(data);
+			return true;
 		});
 	});
 }
@@ -94,6 +97,8 @@ function getForecast(cityName) {
 }
 
 function parseForecast(data) {
+	forecastEl.innerHTML = "";	//no event handlers, so this is ok
+
 	//data comes in in 3 hour increments
 	//search for tomorrow at noon
 	var tomorrowAtNoon = moment().clone().hours(12).startOf('hour').add(1, "day");
@@ -109,6 +114,7 @@ function parseForecast(data) {
 }
 
 function displayForecast(forecast) {
+
 	//forecast is an object with clouds, main, etc
 	var cardEl = document.createElement("ul");
 	cardEl.className = "forecast-card block";
@@ -219,6 +225,10 @@ function peakHistory() {
 		arrowEl.style.transform = "rotate(-45deg)";
 		arrowEl.style.marginRight = "10px";
 	}
+}
+
+function badCity() {
+	
 }
 
 //listeners
