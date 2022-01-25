@@ -84,7 +84,6 @@ function getForecast(cityName) {
 		response.json()
 		.then(function(data) {
 			console.log(data);
-			// localStorage.setItem("forecast2", JSON.stringify(data));
 			parseForecast(data);
 		});
 	});
@@ -127,28 +126,24 @@ function displayForecast(forecast) {
 	cardEl.appendChild(cardHumidityEl);
 	
 	forecastEl.appendChild(cardEl);
-	
-	
-	
-	
-	
-	
-	
-	
 }
 
 function addToHistory (cityName) {
 	//brute search the list to see if cityName is already in there
 	for(i=0; i<historyList.length; i++) {
-		if (historyList[i] === cityName)
-			return;	//the name is in there -> do nothing
+		if (historyList[i] === cityName) {
+			//the name is in there -> remove it
+			historyList.splice(i, 1);
+			break;
+		}
 	}
 	
-	//the name is not in there -> add it to the list
+	//add the name to the top of the list
 	historyList.unshift(cityName);	// add to front
+	//save it
+	localStorage.setItem("weather-history", JSON.stringify(historyList));
 	
 	//and display it
-	var cityHistoryEl = document.createElement("li");
 	updateHistory();
 }
 
@@ -160,7 +155,6 @@ function updateHistory() {
 		historyItem.textContent = historyList[i];
 		historyEl.appendChild(historyItem);
 	}
-	
 }
 
 function getIcon(code) {
@@ -226,8 +220,14 @@ historyEl.addEventListener("click", function(event) {
 
 //body
 //=====================================
-getWeather("Phoenix");
-getForecast("Phoenix");
+//load history
+historyList = (JSON.parse(localStorage.getItem("weather-history")) || ["Phoenix"]);
+updateHistory();
+
+getWeather(historyList[0]);
+getForecast(historyList[0]);
+
+
 
 
 
