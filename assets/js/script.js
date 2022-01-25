@@ -153,6 +153,7 @@ function updateHistory() {
 	
 	for(i=0; i<historyList.length; i++) {
 		var historyItem = document.createElement("li");
+		historyItem.classList = "history-item";
 		historyItem.textContent = historyList[i];
 		historyEl.appendChild(historyItem);
 	}
