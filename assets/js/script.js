@@ -71,6 +71,7 @@ function displayWeather(data) {
 	cityNameEl.textContent = data.name;
 	dateEl.textContent = moment().format("MM/DD/YYYY");
 	iconEl.setAttribute("src", getIcon(data.weather[0].id));
+	iconEl.setAttribute("alt", data.weather[0].description);
 	tempEl.textContent = `${data.main.temp} °F`;
 	windEl.textContent = `${data.wind.speed} MPH`;
 	humidityEl.textContent = `${data.main.humidity} %`;
@@ -115,6 +116,7 @@ function displayForecast(forecast) {
 	cardDateEl.textContent = moment(forecast.dt_txt).format("MM/DD");
 	var cardIconEl = document.createElement("img");
 	cardIconEl.setAttribute("src", getIcon(forecast.weather[0].id));
+	cardIconEl.setAttribute("alt", forecast.weather[0].description);
 	cardIconEl.classList = "forecast-icon";
 	var cardTempEl = document.createElement("li");
 	cardTempEl.textContent = `Temp: ${forecast.main.temp} °F`;
