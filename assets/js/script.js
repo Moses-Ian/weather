@@ -151,7 +151,9 @@ function addToHistory (cityName) {
 	}
 	
 	//add the name to the top of the list
+	console.log(historyList);
 	historyList.unshift(cityName);	// add to front
+	console.log(historyList);
 	//save it
 	localStorage.setItem("weather-history", JSON.stringify(historyList));
 	
