@@ -68,7 +68,7 @@ function getWeather(cityName) {
 }
 
 function displayWeather(data) {
-	console.log(data);
+	// console.log(data);
 	//the uv stuff
 	getUVIndex(data.coord.lat, data.coord.lon);
 	//everything else
@@ -91,7 +91,7 @@ function getForecast(cityName) {
 		}
 		response.json()
 		.then(function(data) {
-			console.log(data);
+			// console.log(data);
 			parseForecast(data);
 		});
 	});
@@ -152,9 +152,7 @@ function addToHistory (cityName) {
 	}
 	
 	//add the name to the top of the list
-	console.log(historyList);
 	historyList.unshift(cityName);	// add to front
-	console.log(historyList);
 	//save it
 	localStorage.setItem("weather-history", JSON.stringify(historyList));
 	
@@ -196,7 +194,7 @@ function getUVIndex(lat, lon) {
 		}
 		response.json()
 		.then(function(data) {
-			console.log(data);
+			// console.log(data);
 			displayUVIndex(data);
 		});
 	});
