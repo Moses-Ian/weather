@@ -51,7 +51,7 @@ function searchCity(cityName) {
 
 function getWeather(cityName) {
 	var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${weatherKey}`;
-	fetch(apiUrl)
+	result = fetch(apiUrl)
 	.then(function(response) {
 		if(!response.ok) {
 			console.log("response bad");
@@ -64,6 +64,7 @@ function getWeather(cityName) {
 			return true;
 		});
 	});
+	return result;
 }
 
 function displayWeather(data) {
